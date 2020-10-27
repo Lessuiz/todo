@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+}
+
+.projects {
+  width: 25%;
+  border-right: 3px dashed #e0e0e0;
+  padding: 10px;
+}
+
+.tasks {
+  width: 50%;
+  border-right: 3px dashed #e0e0e0;
+}
+
+.notes {
+  width: 25%;
+}
+
+.new-project {
+  margin: 20px auto;
+  width: 130px;
+  text-align: center;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  border: 2px solid #9cc5f7;
+}
+
+.all-projects {
+  border-bottom: 2px dashed red;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.project {
+  margin-top: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #fff #fff #e0e0e0 #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  transition: 0.1s;
+}
+
+.project:hover {
+  border: 2px solid #e0e0e0;
+}
+
+.project * {
+  margin: 0 5px;
+  padding: 4px 6px;
+}
+
+.project-name {
+  width: 55%;
+}
+
+.due-date {
+  width: 35%;
+}
+
+.delete-project {
+  border-radius: 15px;
+}
+
+.delete-project:hover {
+  background-color: #e0e0e0;
+}
+
+.selected {
+  border: 2px solid red;
+}
+
