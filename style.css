@@ -83,3 +83,87 @@ main {
   border: 2px solid red;
 }
 
+.notes {
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.notes-header {
+  display: block;
+  width: fit-content;
+  margin: 10px auto;
+}
+
+.new-note {
+  border-radius: 5px;
+  width: 80px;
+  text-align: center;
+  padding: 5px;
+  border: 2px solid red;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.new-note:hover {
+  background-color: #e64444;
+  color: #f3f3f3;
+}
+
+#new-note-form {
+  margin: 10px;
+}
+
+#note-text-input {
+  display: block;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+#create-note {
+  padding: 6px 8px;
+  border-radius: 5px;
+  background-color: white;
+  border: 2px solid #9cc5f7;
+  display: inline;
+  cursor: pointer;
+}
+
+#create-note:hover {
+  background-color: #9cc5f7;
+  color: white;
+}
+
+.note {
+  border: 1px solid white;
+  border-bottom: 2px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 5px;
+  margin: 10px;
+}
+
+.note-text {
+  margin: 5px;
+  font-size: 18px;
+}
+
+.note-control {
+  text-align: right;
+  display: none;
+}
+
+.note:hover .note-control {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.delete-note {
+  border-radius: 15px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.delete-note:hover {
+  background-color: #e0e0e0;
+}
+
