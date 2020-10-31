@@ -117,6 +117,8 @@ main {
   display: block;
   margin: 10px 0;
   border-radius: 5px;
+  outline: none;
+  padding: 5px;
 }
 
 #create-note {
