@@ -35,6 +35,15 @@ function updateDOMNotes(array) {
 
     let newNoteDelete = document.createElement('i')
     newNoteDelete.classList.add('fa', 'fa-trash-o', 'delete-note')
+    newNoteDelete.setAttribute('data-delete-index', index)
+    newNoteDelete.addEventListener('click', () => {
+      notes.forEach((i, index) => {
+        if (index == newNoteDelete.getAttribute('data-delete-index')) {
+          notes.splice(index, 1)
+        }
+      })
+      updateDOMNotes(notes)
+    })
     newNoteControl.appendChild(newNoteDelete)
     // TODO: delete button logic
     
