@@ -56,10 +56,14 @@ function updateDOMNotes(array) {
 
 createNoteButton.addEventListener('click', () => {
   let noteText = noteTextInput.value
-  noteTextInput.value = ''
-  noteForm.hidden = true
+  if (noteText != "") {
+    noteTextInput.value = ''
+    noteForm.hidden = true
 
-  let note = new Note(noteText, format(new Date(), "dd/MM/yy"))
-  notes.unshift(note)
-  updateDOMNotes(notes)
+    let note = new Note(noteText, format(new Date(), "dd/MM/yy"))
+    notes.unshift(note)
+    updateDOMNotes(notes)
+  }else {
+    alert("The note can't be empty")
+  }
 })
