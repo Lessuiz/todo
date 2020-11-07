@@ -71,11 +71,11 @@ main {
   width: 35%;
 }
 
-.delete-project {
+.project i {
   border-radius: 15px;
 }
 
-.delete-project:hover {
+.project i:hover {
   background-color: #e0e0e0;
 }
 
@@ -169,3 +169,51 @@ main {
   background-color: #e0e0e0;
 }
 
+.project-title-div {
+  height: 100px;
+  margin: 15px;
+  padding-left: 10px;
+  border-bottom: 2px solid red;
+}
+
+.project-title {
+  line-height: 130px;
+  font-size: 24px;
+}
+
+.task-list {
+  padding: 25px;
+}
+
+.task {
+  display: flex;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #fff #fff #e0e0e0 #fff;
+  width: 100%;
+  padding: 15px;
+  justify-content: space-between;
+  font-size: 18px;
+  border-radius: 7px;
+  transition: 0.1s;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.task:hover {
+  border: 2px solid #e0e0e0;
+}
+
+.task * {
+  margin: 0 5px;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+.task i:hover {
+  background-color: #e0e0e0;
+}
+
+.task-name {
+  width: 75%;
+}
