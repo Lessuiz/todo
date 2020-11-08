@@ -25,6 +25,8 @@ main {
   width: 25%;
 }
 
+/*   project styling   */
+
 .new-project {
   margin: 20px auto;
   width: 130px;
@@ -83,6 +85,8 @@ main {
 .selected {
   border: 2px solid red;
 }
+
+/*   note styling   */
 
 .notes {
   padding: 10px;
@@ -170,6 +174,8 @@ main {
   background-color: #e0e0e0;
 }
 
+/*   task styling   */
+
 .project-title-div {
   height: 100px;
   margin: 15px;
@@ -218,6 +224,8 @@ main {
 .task-name {
   width: 75%;
 }
+
+/*   form styling   */
 
 .form {
   width: 80%;
