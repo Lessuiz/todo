@@ -18,6 +18,7 @@ main {
 .tasks {
   width: 50%;
   border-right: 3px dashed #e0e0e0;
+  padding: 0 20px;
 }
 
 .notes {
@@ -216,4 +217,19 @@ main {
 
 .task-name {
   width: 75%;
+}
+
+.form {
+  width: 80%;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+.form label * {
+  display: block;
+  width: 100%;
 }
