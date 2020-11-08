@@ -26,22 +26,20 @@
     </div>
     <div class="tasks">
       <div class="project-title-div">
-        <p class="project-title">All Tasks</p>
+        <p class="project-title">New Project</p>
       </div>
-      <div class="task-list">
-        <div class="task">
-          <i class="fa fa-circle-o task-status"></i>
-          <p class="task-name">Example task</p>
-          <i class="fa fa-pencil edit-note"></i>
-          <i class="fa fa-trash-o delete-task"></i>
-        </div>
-        <div class="task">
-          <i class="fa fa-circle-o task-status"></i>
-          <p class="task-name">Example task</p>
-          <i class="fa fa-pencil edit-note"></i>
-          <i class="fa fa-trash-o delete-task"></i>
-        </div>
-      </div>
+      <form action="" class="form">
+        <label for="title"> Project/Task name
+          <input type="text" id="title">
+        </label>
+        <label for="desc">Description
+          <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+        </label>
+        <label for="due">Due-date
+          <input type="date" name="due" id="due">
+        </label>
+        <input type="button" value="Create Project/Task" id="create">
+      </form>
     </div>
     <div class="notes">
       <h2 class="notes-header">Notes</h2>
