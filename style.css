@@ -124,6 +124,7 @@ main {
   border-radius: 5px;
   outline: none;
   padding: 5px;
+  width: 100%;
 }
 
 #create-note {
