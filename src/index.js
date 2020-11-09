@@ -60,7 +60,7 @@ createNoteButton.addEventListener('click', () => {
     noteTextInput.value = ''
     noteForm.hidden = true
 
-    let note = new Note(noteText, format(new Date(), "dd/MM/yy"))
+    let note = new Note(noteText, format(new Date(), "dd/MM/yy HH:mm"))
     notes.unshift(note)
     updateDOMNotes(notes)
   }else {
