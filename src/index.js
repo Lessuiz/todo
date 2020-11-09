@@ -1,5 +1,10 @@
 import { format } from 'date-fns'
 
+// Project creation form
+import createForm from './form'
+const newProjectButton = document.querySelector(".new-project")
+
+newProjectButton.addEventListener('click', () => createForm("Project"))
 
 // Show the note creation form
 
