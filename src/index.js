@@ -1,10 +1,24 @@
 import { format } from 'date-fns'
 
-// Project creation form
+// Project creation form and project object creation logic
 import createForm from './form'
+import { createProject } from './project'
 const newProjectButton = document.querySelector(".new-project")
 
-newProjectButton.addEventListener('click', () => createForm("Project"))
+let projectList = []
+
+newProjectButton.addEventListener('click', () => {
+  createForm("Project")
+
+  // Assign all user inputs to variables and create the project object
+
+  let createProjectButton = document.querySelector("#create")
+
+  createProjectButton.addEventListener('click', () => {
+    projectList.push(createProject())
+    console.log(projectList)
+  })
+})
 
 // Show the note creation form
 
@@ -15,7 +29,7 @@ noteFormButton.addEventListener('click', () => {
   noteForm.hidden = !noteForm.hidden
 })
 
-// Note creation logic
+// Note creation and DOM manipulation logic
 
 import Note from './note'
 

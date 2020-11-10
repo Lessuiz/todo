@@ -16,6 +16,7 @@ export default function createForm(type) {
   content.appendChild(newItemDiv)
 
   let form = document.createElement('form')
+  form.autocomplete = "off"
   form.classList.add('form')
 
   // Item title field
@@ -54,8 +55,8 @@ export default function createForm(type) {
 
     let dueDateInput = document.createElement('input')
     dueDateInput.type = 'date'
-    dueDateInput.name = 'date'
-    dueDateInput.id = 'date'
+    dueDateInput.name = 'due'
+    dueDateInput.id = 'due'
 
     dueDateLabel.appendChild(dueDateInput)
     form.appendChild(dueDateLabel)
