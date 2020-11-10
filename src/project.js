@@ -38,4 +38,36 @@ function createProject() {
   return project
 }
 
-export { createProject }
+function renderProjectList(list) {
+  let projectList = document.querySelector('.project-list')
+  projectList.innerHTML = ''
+
+  list.forEach((project, index) => {
+    let newProject = document.createElement('div')
+    newProject.classList.add('project')
+    newProject.setAttribute('data-project-index', index)
+
+    let statusDisplay = document.createElement('i')
+    statusDisplay.classList.add('fa', 'fa-circle-o', 'project-status')
+    newProject.appendChild(statusDisplay)
+
+    let projectTitle = document.createElement('p')
+    projectTitle.classList.add('project-name')
+    projectTitle.textContent = project.projectTitle
+    newProject.appendChild(projectTitle)
+
+    let projectDueDate = document.createElement('p')
+    projectDueDate.classList.add('due-date')
+    projectDueDate.textContent = project.dueDate
+    newProject.appendChild(projectDueDate)
+
+    let projectDeleteButton = document.createElement('i')
+    projectDeleteButton.classList.add('fa', 'fa-trash-o', 'delete-project')
+    projectDeleteButton.setAttribute('data-project-delete-index', index)
+    newProject.appendChild(projectDeleteButton)
+
+    projectList.appendChild(newProject)
+  });
+}
+
+export { createProject, renderProjectList }

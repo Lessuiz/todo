@@ -13,6 +13,7 @@ main {
   width: 25%;
   border-right: 3px dashed #e0e0e0;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .tasks {
@@ -23,6 +24,8 @@ main {
 
 .notes {
   width: 25%;
+  padding: 10px;
+  overflow-y: scroll;
 }
 
 /*   project styling   */
@@ -87,11 +90,6 @@ main {
 }
 
 /*   note styling   */
-
-.notes {
-  padding: 10px;
-  overflow-y: scroll;
-}
 
 .notes-header {
   display: block;

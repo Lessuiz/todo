@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 
 // Project creation form and project object creation logic
 import createForm from './form'
-import { createProject } from './project'
+import { createProject, renderProjectList } from './project'
 const newProjectButton = document.querySelector(".new-project")
 
 let projectList = []
@@ -16,7 +16,7 @@ newProjectButton.addEventListener('click', () => {
 
   createProjectButton.addEventListener('click', () => {
     projectList.push(createProject())
-    console.log(projectList)
+    renderProjectList(projectList)
   })
 })
 
