@@ -1,4 +1,4 @@
-export default function createForm(type) {
+function createForm(type) {
   let content = document.querySelector('.tasks')
   content.innerHTML = ''
   let selected = document.querySelector('.selected')
@@ -17,6 +17,8 @@ export default function createForm(type) {
 
   let form = document.createElement('form')
   form.autocomplete = "off"
+  form.name = "creation-form"
+  form.setAttribute('data-form-type', type)
   form.classList.add('form')
 
   // Item title field
@@ -28,6 +30,7 @@ export default function createForm(type) {
   let itemTitleField = document.createElement('input')
   itemTitleField.type = 'text'
   itemTitleField.id = 'title'
+  itemTitleField.name = 'title'
   
   itemTitleLabel.appendChild(itemTitleField)
   form.appendChild(itemTitleLabel)
@@ -36,12 +39,13 @@ export default function createForm(type) {
 
   let itemDescLabel = document.createElement('label')
   itemDescLabel.setAttribute('for', 'desc')
-  itemDescLabel.textContent = "Description"
+  itemDescLabel.textContent = "Description (optional)"
 
   let itemDescField = document.createElement('textarea')
   itemDescField.setAttribute('rows', '10')
   itemDescField.setAttribute('name', 'desc')
   itemDescField.id = 'desc'
+  itemTitleField.name = 'desc'
 
   itemDescLabel.appendChild(itemDescField)
   form.appendChild(itemDescLabel)
@@ -51,7 +55,7 @@ export default function createForm(type) {
   if (type === "Project") {
     let dueDateLabel = document.createElement('label')
     dueDateLabel.setAttribute('for', 'due')
-    dueDateLabel.textContent = "Due-date"
+    dueDateLabel.textContent = "Due-date (optional)"
 
     let dueDateInput = document.createElement('input')
     dueDateInput.type = 'date'
@@ -74,3 +78,10 @@ export default function createForm(type) {
   content.appendChild(form)
 
 }
+
+function validateForm() {
+  let title = document.forms['creation-form']['title'].value
+  return title == ''? false : true
+}
+
+export { createForm, validateForm }

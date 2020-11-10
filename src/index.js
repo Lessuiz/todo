@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 
 // Project creation form and project object creation logic
-import createForm from './form'
+import { createForm, validateForm } from './form'
 import { createProject, renderProjectList } from './project'
 const newProjectButton = document.querySelector(".new-project")
 
@@ -15,8 +15,12 @@ newProjectButton.addEventListener('click', () => {
   let createProjectButton = document.querySelector("#create")
 
   createProjectButton.addEventListener('click', () => {
-    projectList.push(createProject())
-    renderProjectList(projectList)
+    if(validateForm()) {
+      projectList.push(createProject())
+      renderProjectList(projectList)
+    }else {
+      alert("Title must be filled")
+    }
   })
 })
 
