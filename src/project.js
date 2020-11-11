@@ -63,7 +63,12 @@ function renderProjectList(list) {
 
     let projectDeleteButton = document.createElement('i')
     projectDeleteButton.classList.add('fa', 'fa-trash-o', 'delete-project')
-    projectDeleteButton.setAttribute('data-project-delete-index', index)
+    projectDeleteButton.addEventListener('click', () => {
+      if(confirm(`Do you want to delete "${project.projectTitle}"?`)) {
+        console.log(list.splice(index, 1))
+        renderProjectList(list)
+      }
+    })
     newProject.appendChild(projectDeleteButton)
 
     projectList.appendChild(newProject)
