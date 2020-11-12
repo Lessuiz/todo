@@ -1,5 +1,28 @@
 import { format } from 'date-fns'
 
+// Project creation form and project object creation logic
+import { createForm, validateForm } from './form'
+import { createProject, renderProjectList } from './project'
+const newProjectButton = document.querySelector(".new-project")
+
+let projectList = []
+
+newProjectButton.addEventListener('click', () => {
+  createForm("Project")
+
+  // Assign all user inputs to variables and create the project object
+
+  let createProjectButton = document.querySelector("#create")
+
+  createProjectButton.addEventListener('click', () => {
+    if(validateForm()) {
+      projectList.push(createProject())
+      renderProjectList(projectList)
+    }else {
+      alert("Title must be filled")
+    }
+  })
+})
 
 // Show the note creation form
 
@@ -10,7 +33,7 @@ noteFormButton.addEventListener('click', () => {
   noteForm.hidden = !noteForm.hidden
 })
 
-// Note creation logic
+// Note creation and DOM manipulation logic
 
 import Note from './note'
 
