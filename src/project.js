@@ -3,7 +3,16 @@ class Project {
     this.title = title
     this.desc = desc
     this.due = due
+    this.done = false
     this.tasks = []
+  }
+
+  get finished() {
+    return this.done
+  }
+
+  set finished(newStatus) {
+    this.done = newStatus
   }
 
   get projectTitle() {
@@ -48,7 +57,11 @@ function renderProjectList(list) {
     newProject.setAttribute('data-project-index', index)
 
     let statusDisplay = document.createElement('i')
-    statusDisplay.classList.add('fa', 'fa-circle-o', 'project-status')
+    statusDisplay.classList.add('fa', project.finished? 'fa-check-circle-o' : 'fa-circle-o', 'project-status')
+    statusDisplay.addEventListener('click', () => {
+      project.finished = !project.finished
+      renderProjectList(list)
+    })
     newProject.appendChild(statusDisplay)
 
     let projectTitle = document.createElement('p')
