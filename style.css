@@ -13,6 +13,7 @@ main {
   width: 25%;
   border-right: 3px dashed #e0e0e0;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .tasks {
@@ -23,6 +24,18 @@ main {
 
 .notes {
   width: 25%;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.all-tasks {
+  border-width: 2px;
+  border-style: dashed;
+  border-color: white white red white;
+  border-radius: 0;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
 }
 
 /*   project styling   */
@@ -37,12 +50,9 @@ main {
   border: 2px solid #9cc5f7;
 }
 
-.all-projects {
-  border-bottom: 2px dashed red;
-  border-radius: 5px;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
+.new-project:hover {
+  background-color: #9cc5f7;
+  color: white;
 }
 
 .project {
@@ -87,11 +97,6 @@ main {
 }
 
 /*   note styling   */
-
-.notes {
-  padding: 10px;
-  overflow-y: scroll;
-}
 
 .notes-header {
   display: block;
@@ -233,7 +238,7 @@ main {
   margin: 0 auto;
 }
 
-label {
+.form label {
   display: block;
   margin: 10px 0;
 }
@@ -241,4 +246,20 @@ label {
 .form label * {
   display: block;
   width: 100%;
+}
+
+.form input {
+  margin-top: 10px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  padding: 0 0 5px 0;
+}
+
+.form textarea {
+  margin-top: 10px;
+  border: none;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  outline: none;
 }
