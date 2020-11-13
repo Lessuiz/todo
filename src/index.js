@@ -24,6 +24,15 @@ newProjectButton.addEventListener('click', () => {
   })
 })
 
+// Get all tasks and show them
+
+import { returnAllTasks, renderTasks} from './tasks'
+
+let allTasksButton = document.querySelector('.all-tasks')
+allTasksButton.addEventListener('click', () => {
+  renderTasks(returnAllTasks(projectList))
+})
+
 // Show the note creation form
 
 const noteForm = document.querySelector("#new-note-form")
