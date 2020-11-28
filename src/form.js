@@ -1,11 +1,6 @@
 function createForm(type) {
   let content = document.querySelector('.tasks')
   content.innerHTML = ''
-  let selected = document.querySelector('.selected')
-
-  if (selected) {
-    selected.classList.remove('selected')
-  }
 
   let newItemDiv = document.createElement('div')
   newItemDiv.classList.add('project-title-div')
