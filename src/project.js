@@ -13,6 +13,10 @@ class Project {
     return this.done
   }
 
+  deleteTask(index) {
+    this.tasks.splice(index, 1)
+  }
+
   set finished(newStatus) {
     this.done = newStatus
   }

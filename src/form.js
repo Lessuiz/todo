@@ -5,6 +5,7 @@ function createForm(type) {
   let newItemDiv = document.createElement('div')
   newItemDiv.classList.add('project-title-div')
   let newItemHeader = document.createElement('p')
+  newItemHeader.classList.add('new-item-header')
   newItemHeader.textContent = `New ${type}`
   newItemHeader.classList.add('project-title')
   newItemDiv.appendChild(newItemHeader)
@@ -15,6 +16,7 @@ function createForm(type) {
   form.name = "creation-form"
   form.setAttribute('data-form-type', type)
   form.classList.add('form')
+  form.onsubmit = () => { return false }
 
   // Item title field
 
@@ -79,4 +81,16 @@ function validateForm() {
   return title == ''? false : true
 }
 
-export { createForm, validateForm }
+function fillForm(task) {
+  let header = document.querySelector('.new-item-header')
+  header.textContent = "Edit Task"
+
+  let title = document.querySelector('#title')
+  console.log(task)
+  title.value = task.taskTitle
+
+  let desc = document.querySelector('#desc')
+  desc.value = task.taskDesc
+}
+
+export { createForm, fillForm, validateForm }

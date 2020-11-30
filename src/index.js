@@ -39,6 +39,7 @@ newProjectButton.addEventListener('click', () => {
       let newProject = createProject()
       projectList.push(newProject)
       renderProjectList(projectList)
+      changeSelected(document.querySelector('.project-list').lastChild)
       renderTasks(newProject.projectTasks, newProject)
     }else {
       alert("Title must be filled")

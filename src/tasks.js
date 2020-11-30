@@ -1,5 +1,5 @@
 import { changeSelected } from '.'
-import { createForm, validateForm } from './form'
+import { createForm, fillForm, validateForm } from './form'
 
 class Task {
   constructor(title, desc, parent) {
@@ -7,6 +7,10 @@ class Task {
     this.desc = desc
     this.parent = parent
     this.done = false
+  }
+
+  set taskTitle(title) {
+    this.title = title
   }
 
   get finished() {
@@ -99,9 +103,24 @@ function renderTasks(taskList, parentProject = false) {
 
       let editTask = document.createElement('i')
       editTask.classList.add('fa', 'fa-pencil', 'edit-task')
+      editTask.addEventListener('click', () => {
+        createForm('Task')
+        fillForm(task)
+        let createTaskButton = document.querySelector('#create')
+        createTaskButton.addEventListener('click', () => {
+          task.taskTitle = document.querySelector('#title').value
+          renderTasks(taskList, parentProject)
+        })
+      })
 
       let deleteTask = document.createElement('i')
       deleteTask.classList.add('fa', 'fa-trash', 'delete-task')
+      deleteTask.addEventListener('click', () => {
+        if(confirm('Do you want to delete this task?')) {
+          parentProject.deleteTask(index)
+          renderTasks(taskList, parentProject)
+        }
+      })
 
       newTask.appendChild(editTask)
       newTask.appendChild(deleteTask)
@@ -123,7 +142,6 @@ function addNewTaskButton(taskList, project) {
       if(validateForm()) {
         project.addTask(createTask())
         renderTasks(taskList, project)
-
       }else {
         alert("Title must be filled")
       }
