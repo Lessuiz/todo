@@ -20,6 +20,7 @@ main {
   width: 50%;
   border-right: 3px dashed #e0e0e0;
   padding: 0 20px;
+  overflow-y: scroll;
 }
 
 .notes {
@@ -78,10 +79,12 @@ main {
 
 .project-name {
   width: 55%;
+  pointer-events: none;
 }
 
 .due-date {
   width: 35%;
+  pointer-events: none;
 }
 
 .project i {
@@ -92,9 +95,6 @@ main {
   background-color: #e0e0e0;
 }
 
-.selected {
-  border: 2px solid red;
-}
 
 /*   note styling   */
 
@@ -182,6 +182,24 @@ main {
 
 /*   task styling   */
 
+.new-task-button {
+  border: 2px solid #9cc5f7;
+  width: 90px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  border-radius: 5px;
+  user-select: none;
+}
+
+.new-task-button:hover {
+  background-color: #9cc5f7;
+  color: #f3f3f3;
+  cursor: pointer;
+}
+
 .project-title-div {
   height: 100px;
   margin: 15px;
@@ -267,15 +285,28 @@ main {
 /*  When there are no tasks left */
 
 .no-tasks-div {
-  width: 100%;
+  width: 50%;
   height: 100%;
   display: flex;
+  top: 0;
+  left: 25%;
+  pointer-events: none;
   justify-content: center;
   align-items: center;
+  position: absolute;
+
 }
 
 .no-tasks {
   font-size: 50px;
   color: #bebebe;
   user-select: none;
+}
+
+.selected {
+  border: 2px solid red;
+}
+
+.selected:hover {
+  border: 2px solid red;
 }
