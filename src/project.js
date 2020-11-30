@@ -1,4 +1,6 @@
+
 class Project {
+
   constructor(title, desc, due) {
     this.title = title
     this.desc = desc
@@ -9,6 +11,10 @@ class Project {
 
   get finished() {
     return this.done
+  }
+
+  deleteTask(index) {
+    this.tasks.splice(index, 1)
   }
 
   set finished(newStatus) {
@@ -58,9 +64,13 @@ function renderProjectList(list) {
 
     let statusDisplay = document.createElement('i')
     statusDisplay.classList.add('fa', project.finished? 'fa-check-circle-o' : 'fa-circle-o', 'project-status')
-    statusDisplay.addEventListener('click', () => {
+    statusDisplay.addEventListener('click', x => {
       project.finished = !project.finished
-      renderProjectList(list)
+      if(project.finished) {
+        statusDisplay.classList.replace('fa-circle-o', 'fa-check-circle-o')
+      }else {
+        statusDisplay.classList.replace('fa-check-circle-o', 'fa-circle-o')
+      }
     })
     newProject.appendChild(statusDisplay)
 
@@ -76,7 +86,8 @@ function renderProjectList(list) {
 
     let projectDeleteButton = document.createElement('i')
     projectDeleteButton.classList.add('fa', 'fa-trash-o', 'delete-project')
-    projectDeleteButton.addEventListener('click', () => {
+    projectDeleteButton.addEventListener('click', x => {
+
       if(confirm(`Do you want to delete "${project.projectTitle}"?`)) {
         list.splice(index, 1)
         renderProjectList(list)

@@ -1,22 +1,70 @@
+import { changeSelected } from '.'
+import { createForm, fillForm, validateForm } from './form'
+
+class Task {
+  constructor(title, desc, parent) {
+    this.title = title
+    this.desc = desc
+    this.parent = parent
+    this.done = false
+  }
+
+  set taskTitle(title) {
+    this.title = title
+  }
+
+  get finished() {
+    return this.done
+  }
+
+  set finished(newStatus) {
+    this.done = newStatus
+  }
+
+  get taskTitle() {
+    return this.title
+  }
+
+  get taskDesc() {
+    return this.desc
+  }
+
+  get parentProject() {
+    return this.parent
+  }
+}
+
 function returnAllTasks(projectList) {
   let taskList = []
   projectList.forEach(element => {
-    taskList.concat(element.projectTasks)
+    taskList = taskList.concat(element.projectTasks)
   });
   return taskList
+}
+
+function createTask(parent) {
+  let taskTitle = document.querySelector('#title').value
+  let taskDesc = document.querySelector('#desc').value
+
+  let task = new Task(taskTitle, taskDesc, parent)
+  return task
 }
 
 function renderTasks(taskList, parentProject = false) {
   let content = document.querySelector(".tasks")
   content.textContent = ''
 
-  let selected = document.querySelector('.selected')
-  if(selected) {
-    selected.classList.remove('selected')
-  }
+  let projectTitleDiv = document.createElement('div')
+  projectTitleDiv.classList.add('project-title-div')
+  let projectTitle = document.createElement('p')
+  projectTitle.classList.add('project-title')
+  projectTitle.textContent = parentProject ? parentProject.projectTitle : 'All Tasks'
+  projectTitleDiv.appendChild(projectTitle)
+  content.appendChild(projectTitleDiv)
 
-  let allTasksButton = document.querySelector('.all-tasks')
-  allTasksButton.classList.add('selected')
+  if(parentProject) {
+    addNewTaskButton(taskList, parentProject)
+  }
 
   if(taskList.length === 0) {
     let noTasksDiv = document.createElement('div')
@@ -28,6 +76,82 @@ function renderTasks(taskList, parentProject = false) {
 
     noTasksDiv.appendChild(noTasks)
     content.appendChild(noTasksDiv)
+  }else {
+    taskList.forEach((task, index) => {
+      let newTask = document.createElement('div')
+      newTask.classList.add('task')
+      newTask.setAttribute('data-task-index', index)
+
+      // add status display functionality
+
+      let statusDisplay = document.createElement('i')
+      statusDisplay.classList.add('fa', task.finished? 'fa-check-circle-o' : 'fa-circle-o', 'task-status')
+      statusDisplay.addEventListener('click', x => {
+        task.finished = !task.finished
+        if(task.finished) {
+          statusDisplay.classList.replace('fa-circle-o', 'fa-check-circle-o')
+        }else {
+          statusDisplay.classList.replace('fa-check-circle-o', 'fa-circle-o')
+        }
+      })
+      newTask.appendChild(statusDisplay)
+
+      let taskTitle = document.createElement('p')
+      taskTitle.classList.add('task-name')
+      taskTitle.textContent = task.taskTitle
+      newTask.appendChild(taskTitle)
+
+      let editTask = document.createElement('i')
+      editTask.classList.add('fa', 'fa-pencil', 'edit-task')
+      editTask.addEventListener('click', () => {
+        createForm('Task')
+        fillForm(task)
+        let createTaskButton = document.querySelector('#create')
+        createTaskButton.addEventListener('click', () => {
+          task.taskTitle = document.querySelector('#title').value
+          renderTasks(taskList, parentProject)
+        })
+      })
+
+      let deleteTask = document.createElement('i')
+      deleteTask.classList.add('fa', 'fa-trash', 'delete-task')
+      deleteTask.addEventListener('click', () => {
+        if(confirm('Do you want to delete this task?')) {
+          parentProject.deleteTask(index)
+          renderTasks(taskList, parentProject)
+        }
+      })
+
+      newTask.appendChild(editTask)
+      newTask.appendChild(deleteTask)
+      content.appendChild(newTask)
+    })
   }
 }
-export { returnAllTasks, renderTasks }
+
+function addNewTaskButton(taskList, project) {
+  let newTaskButton = document.createElement('div')
+  newTaskButton.classList.add('new-task-button')
+  newTaskButton.textContent = "New Task"
+  newTaskButton.addEventListener('click', () => { 
+    createForm('Task')
+    let createTaskButton = document.querySelector('#create')
+    console.log(project)
+    
+    createTaskButton.addEventListener('click', () => {
+      if(validateForm()) {
+        project.addTask(createTask())
+        renderTasks(taskList, project)
+      }else {
+        alert("Title must be filled")
+      }
+    })
+  })
+  
+  let content = document.querySelector('.tasks')
+  content.appendChild(newTaskButton)
+
+  return newTaskButton
+}
+
+export { returnAllTasks, addNewTaskButton, createTask, renderTasks }

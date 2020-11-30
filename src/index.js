@@ -1,13 +1,33 @@
 import { format } from 'date-fns'
 
-// Project creation form and project object creation logic
 import { createForm, validateForm } from './form'
 import { createProject, renderProjectList } from './project'
+
+import { returnAllTasks, addNewTaskButton, createTask, renderTasks} from './tasks'
+
+
+import Note from './note'
+
+// Project creation form and project object creation logic
+
 const newProjectButton = document.querySelector(".new-project")
+
+export function changeSelected(node = false) {
+  let selected = document.querySelector('.selected')
+  console.log(selected)
+  if(selected) {
+    selected.classList.remove('selected')
+  }
+  if(node) {
+    node.classList.add('selected')
+  }else { return }
+}
 
 let projectList = []
 
 newProjectButton.addEventListener('click', () => {
+  changeSelected()
+
   createForm("Project")
 
   // Assign all user inputs to variables and create the project object
@@ -16,21 +36,45 @@ newProjectButton.addEventListener('click', () => {
 
   createProjectButton.addEventListener('click', () => {
     if(validateForm()) {
-      projectList.push(createProject())
+      let newProject = createProject()
+      projectList.push(newProject)
       renderProjectList(projectList)
+      changeSelected(document.querySelector('.project-list').lastChild)
+      renderTasks(newProject.projectTasks, newProject)
     }else {
       alert("Title must be filled")
     }
+
+    // Add event listener to create tasks and bind them to the project
+
+    let projectListDOM = document.querySelectorAll('.project')
+        
+    // Assign all user inputs to variables and create the task object
+
+    projectListDOM.forEach((project, index) => {
+      project.addEventListener('click', x => {
+        changeSelected(project)
+        renderTasks(projectList[index].projectTasks, projectList[index])
+      })
+    })
   })
 })
 
 // Get all tasks and show them
 
-import { returnAllTasks, renderTasks} from './tasks'
+
 
 let allTasksButton = document.querySelector('.all-tasks')
-allTasksButton.addEventListener('click', () => {
-  renderTasks(returnAllTasks(projectList))
+allTasksButton.addEventListener('click', x => {
+  /* let selected = document.querySelector('.selected')
+  if(selected) {
+    selected.classList.remove('selected')
+  }
+
+  allTasksButton.classList.add('selected') */
+
+  changeSelected(allTasksButton)
+  renderTasks(returnAllTasks(projectList, x))
 })
 
 // Show the note creation form
@@ -44,7 +88,6 @@ noteFormButton.addEventListener('click', () => {
 
 // Note creation and DOM manipulation logic
 
-import Note from './note'
 
 const noteTextInput = document.querySelector('#note-text-input')
 const createNoteButton = document.querySelector('#create-note')
