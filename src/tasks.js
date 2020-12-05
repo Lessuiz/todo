@@ -63,6 +63,11 @@ function renderTasks(taskList, parentProject = false) {
   content.appendChild(projectTitleDiv)
 
   if(parentProject) {
+    let description = document.createElement("div")
+    description.classList.add("description")
+    description.textContent = parentProject.projectDesc
+    content.appendChild(description)
+
     addNewTaskButton(taskList, parentProject)
   }
 
