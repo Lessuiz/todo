@@ -95,6 +95,13 @@ main {
   background-color: #e0e0e0;
 }
 
+.description {
+  margin: 0 auto;
+  font-size: 17px;
+  width: 85%;
+  word-wrap: break-word;
+}
+
 
 /*   note styling   */
 
