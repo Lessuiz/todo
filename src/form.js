@@ -86,7 +86,6 @@ function fillForm(task) {
   header.textContent = "Edit Task"
 
   let title = document.querySelector('#title')
-  console.log(task)
   title.value = task.taskTitle
 
   let desc = document.querySelector('#desc')

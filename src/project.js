@@ -1,12 +1,13 @@
-
+import { changeSelected, updateLSProjects } from './index'
+import { renderTasks } from './tasks'
 class Project {
 
-  constructor(title, desc, due) {
+  constructor(title, desc, due, done = false, tasks = []) {
     this.title = title
     this.desc = desc
     this.due = due
     this.done = false
-    this.tasks = []
+    this.tasks = tasks
   }
 
   get finished() {
@@ -31,6 +32,10 @@ class Project {
 
   get dueDate() {
     return this.due
+  }
+
+  set taskList(list) {
+    this.tasks = list
   }
 
   get projectTasks() {
@@ -71,6 +76,7 @@ function renderProjectList(list) {
       }else {
         statusDisplay.classList.replace('fa-check-circle-o', 'fa-circle-o')
       }
+      updateLSProjects(list)
     })
     newProject.appendChild(statusDisplay)
 
@@ -90,13 +96,19 @@ function renderProjectList(list) {
 
       if(confirm(`Do you want to delete "${project.projectTitle}"?`)) {
         list.splice(index, 1)
+        updateLSProjects(list)
         renderProjectList(list)
       }
     })
     newProject.appendChild(projectDeleteButton)
+    
+    newProject.addEventListener('click', x => {
+      changeSelected(newProject)
+      renderTasks(project.projectTasks, project)
+    })
 
     projectList.appendChild(newProject)
   });
 }
 
-export { createProject, renderProjectList }
+export { createProject, renderProjectList, Project }

@@ -1,9 +1,9 @@
 import { format } from 'date-fns'
 
 import { createForm, validateForm } from './form'
-import { createProject, renderProjectList } from './project'
+import { createProject, renderProjectList, Project } from './project'
 
-import { returnAllTasks, addNewTaskButton, createTask, renderTasks} from './tasks'
+import { returnAllTasks, addNewTaskButton, createTask, renderTasks, Task } from './tasks'
 
 
 import Note from './note'
@@ -14,7 +14,6 @@ const newProjectButton = document.querySelector(".new-project")
 
 export function changeSelected(node = false) {
   let selected = document.querySelector('.selected')
-  console.log(selected)
   if(selected) {
     selected.classList.remove('selected')
   }
@@ -23,7 +22,26 @@ export function changeSelected(node = false) {
   }else { return }
 }
 
-let projectList = []
+export function updateLSProjects(list) {
+  localStorage.projectList = JSON.stringify(list)
+}
+
+if (!localStorage.getItem('projectList')) {
+  localStorage.setItem('projectList', '[]')
+}
+
+let projectListLS = JSON.parse(localStorage.getItem('projectList'))
+export let projectList = []
+projectListLS.forEach(project => {
+  let tasks = []
+  project.tasks.forEach(task => {
+    tasks.push(new Task(task.title, task.desc, task.done))
+  })
+  projectList.push(new Project(project.title, project.desc, project.due, project.done, tasks))
+})
+
+renderProjectList(projectList)
+renderTasks(returnAllTasks(projectList))
 
 newProjectButton.addEventListener('click', () => {
   changeSelected()
@@ -38,6 +56,7 @@ newProjectButton.addEventListener('click', () => {
     if(validateForm()) {
       let newProject = createProject()
       projectList.push(newProject)
+      localStorage.projectList = JSON.stringify(projectList)
       renderProjectList(projectList)
       changeSelected(document.querySelector('.project-list').lastChild)
       renderTasks(newProject.projectTasks, newProject)
@@ -52,10 +71,10 @@ newProjectButton.addEventListener('click', () => {
     // Assign all user inputs to variables and create the task object
 
     projectListDOM.forEach((project, index) => {
-      project.addEventListener('click', x => {
+      /* project.addEventListener('click', x => {
         changeSelected(project)
         renderTasks(projectList[index].projectTasks, projectList[index])
-      })
+      }) */
     })
   })
 })
@@ -92,7 +111,22 @@ noteFormButton.addEventListener('click', () => {
 const noteTextInput = document.querySelector('#note-text-input')
 const createNoteButton = document.querySelector('#create-note')
 const noteList = document.querySelector('#note-list')
-const notes = []
+
+if (!localStorage.getItem('noteList')) {
+  localStorage.setItem('noteList', '[]')
+}
+
+let notesLS = JSON.parse(localStorage.noteList)
+let notes = []
+notesLS.forEach(note => {
+  notes.push(new Note(note.text, note.date))
+})
+
+function updateLSNotes(list) {
+  localStorage.noteList = JSON.stringify(list)
+}
+
+updateDOMNotes(notes)
 
 function updateDOMNotes(array) {
   noteList.innerHTML = ''
@@ -114,6 +148,7 @@ function updateDOMNotes(array) {
     newNoteDelete.addEventListener('click', x => {
       if (confirm("Do you want to delete the note?")) {
         notes.splice(x.target.getAttribute('data-delete-index'), 1)
+        updateLSNotes(notes)
         updateDOMNotes(notes)
       }
     })
@@ -137,6 +172,7 @@ createNoteButton.addEventListener('click', () => {
 
     let note = new Note(noteText, format(new Date(), "dd/MM/yy HH:mm"))
     notes.unshift(note)
+    updateLSNotes(notes)
     updateDOMNotes(notes)
   }else {
     alert("The note can't be empty")

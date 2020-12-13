@@ -1,11 +1,11 @@
-import { changeSelected } from '.'
+import { changeSelected, projectList, updateLSProjects } from './index'
 import { createForm, fillForm, validateForm } from './form'
+import { renderProjectList } from './project'
 
 class Task {
-  constructor(title, desc, parent) {
+  constructor(title, desc, done = false) {
     this.title = title
     this.desc = desc
-    this.parent = parent
     this.done = false
   }
 
@@ -27,10 +27,6 @@ class Task {
 
   get taskDesc() {
     return this.desc
-  }
-
-  get parentProject() {
-    return this.parent
   }
 }
 
@@ -93,10 +89,13 @@ function renderTasks(taskList, parentProject = false) {
       statusDisplay.classList.add('fa', task.finished? 'fa-check-circle-o' : 'fa-circle-o', 'task-status')
       statusDisplay.addEventListener('click', x => {
         task.finished = !task.finished
+        
         if(task.finished) {
           statusDisplay.classList.replace('fa-circle-o', 'fa-check-circle-o')
+          updateLSProjects(projectList)
         }else {
           statusDisplay.classList.replace('fa-check-circle-o', 'fa-circle-o')
+          updateLSProjects(projectList)
         }
       })
       newTask.appendChild(statusDisplay)
@@ -105,30 +104,34 @@ function renderTasks(taskList, parentProject = false) {
       taskTitle.classList.add('task-name')
       taskTitle.textContent = task.taskTitle
       newTask.appendChild(taskTitle)
-
-      let editTask = document.createElement('i')
-      editTask.classList.add('fa', 'fa-pencil', 'edit-task')
-      editTask.addEventListener('click', () => {
-        createForm('Task')
-        fillForm(task)
-        let createTaskButton = document.querySelector('#create')
-        createTaskButton.addEventListener('click', () => {
-          task.taskTitle = document.querySelector('#title').value
-          renderTasks(taskList, parentProject)
+      
+      if (parentProject) {
+        let editTask = document.createElement('i')
+        editTask.classList.add('fa', 'fa-pencil', 'edit-task')
+        editTask.addEventListener('click', () => {
+          createForm('Task')
+          fillForm(task)
+          let createTaskButton = document.querySelector('#create')
+          createTaskButton.addEventListener('click', () => {
+            task.taskTitle = document.querySelector('#title').value
+            updateLSProjects(projectList)
+            renderTasks(taskList, parentProject)
+          })
         })
-      })
 
-      let deleteTask = document.createElement('i')
-      deleteTask.classList.add('fa', 'fa-trash', 'delete-task')
-      deleteTask.addEventListener('click', () => {
-        if(confirm('Do you want to delete this task?')) {
-          parentProject.deleteTask(index)
-          renderTasks(taskList, parentProject)
-        }
-      })
+        let deleteTask = document.createElement('i')
+        deleteTask.classList.add('fa', 'fa-trash', 'delete-task')
+        deleteTask.addEventListener('click', () => {
+          if(confirm('Do you want to delete this task?')) {
+            parentProject.deleteTask(index)
+            renderTasks(taskList, parentProject)
+            updateLSProjects(projectList)
+          }
+        })
 
-      newTask.appendChild(editTask)
-      newTask.appendChild(deleteTask)
+        newTask.appendChild(editTask)
+        newTask.appendChild(deleteTask)
+      }
       content.appendChild(newTask)
     })
   }
@@ -141,11 +144,11 @@ function addNewTaskButton(taskList, project) {
   newTaskButton.addEventListener('click', () => { 
     createForm('Task')
     let createTaskButton = document.querySelector('#create')
-    console.log(project)
     
     createTaskButton.addEventListener('click', () => {
       if(validateForm()) {
         project.addTask(createTask())
+        updateLSProjects(projectList)
         renderTasks(taskList, project)
       }else {
         alert("Title must be filled")
@@ -159,4 +162,4 @@ function addNewTaskButton(taskList, project) {
   return newTaskButton
 }
 
-export { returnAllTasks, addNewTaskButton, createTask, renderTasks }
+export { returnAllTasks, addNewTaskButton, createTask, renderTasks, Task }
