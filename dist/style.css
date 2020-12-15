@@ -234,7 +234,7 @@ main {
   font-size: 18px;
   border-radius: 7px;
   transition: 0.1s;
-  align-items: center;
+  align-items: flex-start;
   margin: 10px 0;
 }
 
@@ -246,6 +246,10 @@ main {
   margin: 0 5px;
   padding: 4px 6px;
   border-radius: 50%;
+}
+
+.task-name {
+  flex-grow: 1;
 }
 
 .task i:hover {
@@ -287,6 +291,18 @@ main {
   border-left: 1px solid black;
   border-bottom: 1px solid black;
   outline: none;
+}
+
+.task-description {
+  align-self: flex-end;
+  margin-top: 50px;
+  width: 100%;
+  display: none;
+  flex-wrap: wrap;
+}
+
+.expandable:hover .task-description {
+  display: block;
 }
 
 /*  When there are no tasks left */

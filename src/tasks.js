@@ -1,16 +1,19 @@
-import { changeSelected, projectList, updateLSProjects } from './index'
+import { projectList, updateLSProjects } from './index'
 import { createForm, fillForm, validateForm } from './form'
-import { renderProjectList } from './project'
 
 class Task {
   constructor(title, desc, done = false) {
     this.title = title
     this.desc = desc
-    this.done = false
+    this.done = done
   }
 
   set taskTitle(title) {
     this.title = title
+  }
+
+  set taskDesc(desc) {
+    this.desc = desc
   }
 
   get finished() {
@@ -82,6 +85,9 @@ function renderTasks(taskList, parentProject = false) {
       let newTask = document.createElement('div')
       newTask.classList.add('task')
       newTask.setAttribute('data-task-index', index)
+      if(task.taskDesc !== "" && task.taskDesc !== " "){
+        newTask.classList.add('expandable')
+      }
 
       // add status display functionality
 
@@ -104,7 +110,12 @@ function renderTasks(taskList, parentProject = false) {
       taskTitle.classList.add('task-name')
       taskTitle.textContent = task.taskTitle
       newTask.appendChild(taskTitle)
-      
+
+      let taskDescDiv = document.createElement('div')
+      taskDescDiv.classList.add('task-description')
+      taskDescDiv.textContent = task.taskDesc
+      newTask.appendChild(taskDescDiv)
+            
       if (parentProject) {
         let editTask = document.createElement('i')
         editTask.classList.add('fa', 'fa-pencil', 'edit-task')
@@ -114,8 +125,9 @@ function renderTasks(taskList, parentProject = false) {
           let createTaskButton = document.querySelector('#create')
           createTaskButton.addEventListener('click', () => {
             task.taskTitle = document.querySelector('#title').value
-            updateLSProjects(projectList)
+            task.taskDesc = document.querySelector('#desc').value
             renderTasks(taskList, parentProject)
+            updateLSProjects(projectList)
           })
         })
 
@@ -132,6 +144,8 @@ function renderTasks(taskList, parentProject = false) {
         newTask.appendChild(editTask)
         newTask.appendChild(deleteTask)
       }
+
+      
       content.appendChild(newTask)
     })
   }

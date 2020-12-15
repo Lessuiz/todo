@@ -6,7 +6,7 @@ class Project {
     this.title = title
     this.desc = desc
     this.due = due
-    this.done = false
+    this.done = done
     this.tasks = tasks
   }
 
